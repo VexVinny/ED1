@@ -16,16 +16,16 @@ void novocontato(agenda **c, int *Qcontato) {
         return;
     }
     if(*Qcontato == 0){
-        printf("Digite o nome do contato (somente 1 nome): ");
+        printf("Digite o nome do contato: ");
         scanf("%s", (*c)[*Qcontato].nome);
-        printf("Digite o numero do contato (somente numeros): ");
+        printf("Digite o numero do contato (formato: (99) 99999-9999): ");
         scanf("%s", (*c)[*Qcontato].contato);
         (*Qcontato)++;
     }else{
         *c = realloc(*c, (*Qcontato + 1) * sizeof(agenda));
-        printf("Digite o nome do contato (somente 1 nome): ");
+        printf("Digite o nome do contato: ");
         scanf("%s", (*c)[*Qcontato].nome);
-        printf("Digite o numero do contato (somente numeros): ");
+        printf("Digite o numero do contato (formato: (99) 99999-9999): ");
         scanf("%s", (*c)[*Qcontato].contato);
         (*Qcontato)++;
     }   
@@ -53,18 +53,48 @@ void salvarcontatos(agenda *c, int Qcontato) {
     FILE *arquivo;
     int i;
 
-    arquivo = fopen("contatos.txt", "w");
+    arquivo = fopen("contatos.csv", "w");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo!\n");
         return;
     }
 
     for (i = 0; i < Qcontato; i++) {
-        fprintf(arquivo, "%s %s\n", c[i].nome, c[i].contato);
+        fprintf(arquivo, "%s,%s\n", c[i].nome, c[i].contato);
     }
 
     fclose(arquivo);
     printf("Contatos salvos com sucesso!\n");
+}
+
+void abrirarquivo(agenda **c, int *Qcontato) {
+    FILE *arquivo;
+    char nome[128], contato[16];
+
+    arquivo = fopen("contatos.csv", "r");
+    if (arquivo == NULL) {
+        printf("Nenhum arquivo encontrado. Iniciando nova agenda.\n");
+        return;
+    }
+
+    while (fscanf(arquivo, " %[^,],%[^\n]", nome, contato) == 2) {
+
+        *c = realloc(*c, (*Qcontato + 1) * sizeof(agenda));
+
+        if (*c == NULL) {
+            printf("Erro de memoria!\n");
+            fclose(arquivo);
+            return;
+        }
+
+        snprintf((*c)[*Qcontato].nome, sizeof((*c)[*Qcontato].nome), "%s", nome);
+        snprintf((*c)[*Qcontato].contato, sizeof((*c)[*Qcontato].contato), "%s", contato);
+
+        (*Qcontato)++;
+    }
+
+    fclose(arquivo);
+    printf("Contatos carregados com sucesso!\n");
 }
 
 int main() {
@@ -76,6 +106,8 @@ int main() {
     }
     int Qcontato = 0;
     int op = 0;
+
+    abrirarquivo(&c, &Qcontato);
 
     do {
         menu();
