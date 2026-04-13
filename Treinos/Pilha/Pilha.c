@@ -25,7 +25,7 @@ void push(Pilha* p, int valor){
     }
 }
 
-int pop(Pilha* p){
+int pop(Pilha* p, int valor){
     if(p->index == -1){
         printf("Pilha vazia\n");
         return -1;
@@ -47,4 +47,23 @@ void ver_pilha(Pilha* p){
 void destruir(Pilha* p){
     free(p->data);
     free(p);
+}
+
+void verificar_parenteses(char* str, Pilha* p){
+    for(int i = 0; str[i] != '\0'; i++){
+        if(str[i] == '('){
+            push(p, 1);
+        } else if(str[i] == ')'){
+            if(pop(p, 0) == -1){
+                printf("Parenteses incorretos\n");
+                return;
+            }
+        }
+    }
+
+    if(p->index == -1){
+        printf("Parenteses corretos\n");
+    } else {
+        printf("Parenteses incorretos\n");
+    }
 }

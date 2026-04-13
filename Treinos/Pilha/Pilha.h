@@ -1,7 +1,5 @@
-#ifndef pilha.h
-#define pilha.h
-
-
+#ifndef PILHA_H
+#define PILHA_H
 
 typedef struct {
     int data[5];
@@ -10,8 +8,9 @@ typedef struct {
 
 Pilha* cria_pilha();
 void push(Pilha* p, int valor);
-int pop(Pilha* p);
+int pop(Pilha* p, int valor);
 int ver_pilha(Pilha* p);
 void destruir(Pilha* p);
+void verificar_parenteses(char* str, Pilha* p);
 
-#endif // pilha.h
+#endif

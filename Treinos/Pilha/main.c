@@ -2,12 +2,14 @@
 #include<stdio.h>
 
 void menu(){
-    printf("1 - criar pilha\n2 - adicionar valor\n3 - remover valor\n4 - acesso ao elemento do topo\n5 - destruir pilha\n0 - sair\nEscolha:");
+    printf("1 - criar pilha\n2 - adicionar valor\n3 - remover valor\n4 - acesso ao elemento do topo\n5 - destruir pilha\n6 - verificar parenteses\n0 - sair\nEscolha:");
 }
 
 int main(){
     Pilha* p = cria_pilha();
     int valor, op;
+    char str[100];
+
     do{
         menu();
         scanf("%d", &op);
@@ -21,13 +23,18 @@ int main(){
                 push(p, valor);
                 break;
             case 3:
-                pop(p);
+                pop(p, valor);
                 break;
             case 4:
                 ver_pilha(p);
                 break;  
             case 5:
                 destruir(p);
+                break;
+            case 6:
+                printf("Digite a string com parenteses: ");
+                scanf("%s", str);
+                verificar_parenteses(str, p);
                 break;
             case 0:
                 printf("saindo...");
