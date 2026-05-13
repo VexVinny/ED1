@@ -23,30 +23,29 @@ TLList* TLList_create(){
     return nova;
 }
 
-bool TLList_insert_begin(TLList* lista, int info){
+bool TLList_insert(TLList* lista, int info) {
     TNo* novo = malloc(sizeof(TNo));
-    novo->info = info;
-    novo->prox = lista->inicio;	
-    lista->inicio = novo;
-    return true;
-}
-bool TLList_insert_end(TLList* lista, int info){
-    TNo* novo = malloc(sizeof(TNo));
-
-    if(novo == NULL){
-        return false;
+    if (novo == NULL){
+        return false; 
     }
     novo->info = info;
     novo->prox = NULL;
-    if(lista->inicio == NULL){
+
+    if (lista->inicio == NULL || info < lista->inicio->info) {
+        novo->prox = lista->inicio;
         lista->inicio = novo;
-    }else{
-        TNo* aux = lista->inicio;
-        while(aux->prox != NULL){
-            aux = aux->prox;
-        }
-        aux->prox = novo;
+        return true;
     }
+
+    TNo* aux = lista->inicio;
+    
+    while (aux->prox != NULL && aux->prox->info < info) {
+        aux = aux->prox;
+    }
+
+    novo->prox = aux->prox;
+    aux->prox = novo;
+
     return true;
 }
 

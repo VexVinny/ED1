@@ -12,7 +12,7 @@ int main(){
 
     for(int i = 0; i < 3; i++){
         printf("Digite o nome do aluno: ");
-        scanf("%s", &aluno[i].nome);
+        scanf("%s", aluno[i].nome);
         printf("Digite o numero(inteiro) da matricula: ");
         scanf("%d", &aluno[i].matricula);
         printf("Digite o numero(float) do cr: ");
