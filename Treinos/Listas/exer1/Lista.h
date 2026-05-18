@@ -12,4 +12,8 @@ void TLList_print(TLList*);
 
 TLList* TLList_conca(TLList*, TLList*);
 
+bool TLList_removeN(TLList*, int);
+
+bool TTList_maiorE(TLList*, int*, int*);
+
 #endif

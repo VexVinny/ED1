@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 int main(){
+    int *maior, *pos;
     TLList* lista1 = TLList_create();
     int V[] = {6, 1, 3, 9, 4}, i;
     for(i = 0; i<5; i++){
@@ -20,6 +21,18 @@ int main(){
 
     TLList* lista3 = TLList_conca(lista1, lista2);
 
-    TLList_print(lista1);
+    TLList_print(lista3);
+
+    int n;
+    printf("Quantos velores quer remover?");
+    scanf("%d", &n);
+    TLList_removeN(lista3, n);
+
+    TLList_print(lista3);
+
+    TTList_maiorE(lista3, &maior, &pos);
+    
+    printf("o maior elemento da lista é %d e está na posição %d\n", maior, pos);
+
     return 0;
 }

@@ -72,3 +72,35 @@ TLList* TLList_conca(TLList* lista1, TLList* lista2){
     }
     return lista3;
 }
+
+bool TLList_removeN(TLList* lista3, int n) {
+    if (lista3 == NULL || lista3->inicio == NULL || n < 0) {
+        return false; 
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (lista3->inicio == NULL) {
+            return false;
+        }
+        TNo* aux = lista3->inicio;     
+        lista3->inicio = aux->prox;    
+        free(aux);                     
+    }
+    return true;
+}
+
+bool TTList_maiorE(TLList* lista3, int *maior, int *pos){
+    if(lista3 == NULL || lista3->inicio == NULL){
+        return false;
+    }
+
+    TNo* aux = lista3->inicio;
+
+    while(aux->prox != NULL){
+        aux = aux->prox;
+        (*pos)++;
+    }
+
+    *maior = aux->info;
+    return true;
+}
